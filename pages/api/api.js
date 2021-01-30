@@ -21,7 +21,9 @@ export const getHome = () => {
 }
 
 export const getSearch = (query) => {
-    const url = `${domain}/search-query/${query}`
+    const parsed = query.replace(' ', '+')
+    const url = `${domain}/search-query/${parsed}`
+    console.log(url)
     return rp(url)
         .then(html => {
             let list = []
