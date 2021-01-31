@@ -46,6 +46,9 @@ export const getLinks = (type, title) => {
         let list = []
         if (type == 'movie') {
             const id = $('div#server_list', html).attr('data-onlystream')
+            if(id == "") {
+                return []
+            }
             const url = vidoo + id
             const title = $('ul#episodes-sv-7 > li.ep-item > div.sli-name', html).text()
             list.push({title, url})
