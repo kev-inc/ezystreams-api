@@ -11,6 +11,10 @@ export default function Home({ data }) {
     }
     return (
         <div className='container'>
+            <Head>
+                <title>Home | Ezystreams</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <div className='row'>
                 <form onSubmit={handleSubmit} class="input-group my-3">
                     <input type="text" className='form-control' placeholder='Search' value={query} onChange={e => setQuery(e.target.value)} />
@@ -33,18 +37,8 @@ export default function Home({ data }) {
         </div>
     )
 }
-
-export async function getStaticProps(context) {
+Home.getInitialProps = async (ctx) => {
     const res = await fetch('https://ezystreams-api.vercel.app/api/home')
     const data = await res.json()
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
-    return {
-        props: { data }, // will be passed to the page component as props
-    }
+    return { data }
 }

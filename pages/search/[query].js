@@ -1,19 +1,24 @@
+import Head from 'next/head'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-export default function Search({ data }) {
-    const [query, setQuery] = useState('')
+export default function Search({ data, query }) {
+    const [search, setSearch] = useState(query)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        window.location.href = '/search/' + query
+        window.location.href = '/search/' + search
     }
 
     return (
         <div className='container'>
+            <Head>
+                <title>Search '{search}' | Ezystreams</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <div className='row'>
                 <form onSubmit={handleSubmit} class="input-group my-3">
-                    <input type="text" className='form-control' placeholder='Search' value={query} onChange={e => setQuery(e.target.value)} />
+                    <input type="text" className='form-control' placeholder='Search' value={search} onChange={e => setSearch(e.target.value)} />
                     <div class="input-group-append">
                         <input class="btn btn-secondary" type="submit" value="Search" />
                     </div>
@@ -26,31 +31,16 @@ export default function Search({ data }) {
                             <img src={item.imgsrc} />
                             <h5>{item.title}</h5>
                             <h6>{item.quality == "" ? item.eps : item.quality}</h6>
-                            </a>
-                        
+                        </a>
+
                     </div>))) : (<h5>Loading...</h5>)}
             </div>
         </div>
     )
 }
-export async function getStaticPaths() {
-    return {
-        paths: [],
-        fallback: true,
-    }
-}
-export async function getStaticProps(context) {
-    const { query } = context.params
+Search.getInitialProps = async (ctx) => {
+    const { query } = ctx.query
     const res = await fetch(`https://ezystreams-api.vercel.app/api/search/${query}`)
     const data = await res.json()
-
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
-
-    return {
-        props: { data }, // will be passed to the page component as props
-    }
+    return { data, query }
 }
