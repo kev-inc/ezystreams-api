@@ -1,13 +1,34 @@
-import styles from '../../styles/Home.module.css'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Search({ data }) {
+    const [query, setQuery] = useState('')
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        window.location.href = '/search/' + query
+    }
 
     return (
-        <div className={styles.container}>
-            {data ? data.map((item, index) => (
-                <div>
-                    <a href={`/watch${item.link}`}>{item.title}</a>
-                </div>)) : (<h5>Loading...</h5>)}
+        <div className='container'>
+            <div className='row'>
+                <form onSubmit={handleSubmit}>
+                    <label>Search:</label>
+                    <input type="text" id="query" name="query" value={query} onChange={e => setQuery(e.target.value)} />
+                    <input type="submit" value="Search" />
+                </form>
+            </div>
+            <div className='row'>
+                {data ? (data.length == 0 ? (<h5>No results found</h5>) : data.map((item, index) => (
+                    <div key={index} className='col-3 mb-2'>
+                        <a href={`/watch${item.link}`}>
+                            <img src={item.imgsrc} />
+                            <h5>{item.title}</h5>
+                            <h6>{item.quality == "" ? item.eps : item.quality}</h6>
+                            </a>
+                        
+                    </div>))) : (<h5>Loading...</h5>)}
+            </div>
         </div>
     )
 }

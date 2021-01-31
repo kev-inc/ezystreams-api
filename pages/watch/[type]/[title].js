@@ -1,16 +1,17 @@
-import styles from '../../../styles/Home.module.css'
-
 export default function Watch({ data }) {
-
-    return (
-        <div className={styles.container}>
-            {data ? data.map((item, index) => (
-                <div>
-                    <iframe height='720' width='1280' allowFullScreen={true} sandbox="allow-scripts" src={item.url} />
+    if(data) {
+        if(data.length == 0) {
+            return (<h5>Sorry, but there are no available streams for this title.</h5>)
+        } else {
+            return data.map((item, index) => (
+                <div key={index}>
+                    <iframe height='720' width='1280' allowFullScreen={true} frameBorder="0" sandbox="allow-scripts allow-presentation" src={item.url} />
                     <h5>{item.title}</h5>
-                </div>)) : (<h5>Loading...</h5>)}
-        </div>
-    )
+                </div>))
+        }
+    } else {
+        return (<h5>Loading...</h5>)
+    }
 }
 export async function getStaticPaths() {
     return {
