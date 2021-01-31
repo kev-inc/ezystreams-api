@@ -46,24 +46,22 @@ export const getLinks = (type, title) => {
 
     return rp(url).then(html => {
         let list = []
+        const name = $('h1.dc-title', html).text()
         if (type == 'movie') {
             const id = $('div#server_list', html).attr('data-onlystream')
             if(id == "") {
-                return []
+                return {name, list}
             }
             const url = vidoo + id
-            const name = $('h1.dc-title', html).text()
             const title = $('ul#episodes-sv-7 > li.ep-item > div.sli-name', html).text()
-            list.push({name, title, url})
+            list.push({ title, url})
         } else {
             $('ul#episodes-sv-7 > li.ep-item', html).each((index, value) => {
                 const url = vidoo + $(value).attr('data-onlystream')
                 const title = $('div.sli-name > a', value).attr('title')
-                const name = $('h1.dc-title', html).text()
-
-                list.push({ name, title, url })
+                list.push({ title, url })
             })
         }
-        return list
+        return {name, list}
     })
 }
