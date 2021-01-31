@@ -12,15 +12,16 @@ export default function Search({ data }) {
     return (
         <div className='container'>
             <div className='row'>
-                <form onSubmit={handleSubmit}>
-                    <label>Search:</label>
-                    <input type="text" id="query" name="query" value={query} onChange={e => setQuery(e.target.value)} />
-                    <input type="submit" value="Search" />
+                <form onSubmit={handleSubmit} class="input-group my-3">
+                    <input type="text" className='form-control' placeholder='Search' value={query} onChange={e => setQuery(e.target.value)} />
+                    <div class="input-group-append">
+                        <input class="btn btn-secondary" type="submit" value="Search" />
+                    </div>
                 </form>
             </div>
             <div className='row'>
                 {data ? (data.length == 0 ? (<h5>No results found</h5>) : data.map((item, index) => (
-                    <div key={index} className='col-3 mb-2'>
+                    <div key={index} className='col-md-3 col-sm-4 col-6 mb-2'>
                         <a href={`/watch${item.link}`}>
                             <img src={item.imgsrc} />
                             <h5>{item.title}</h5>
