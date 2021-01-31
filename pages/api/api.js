@@ -14,7 +14,9 @@ export const getHome = () => {
                 const link = $('a', value).attr('href').replace(domain, '')
                 const title = $('a', value).attr('title')
                 const imgsrc = $('a > img', value).attr('src')
-                list.push({ title, link, imgsrc })
+                const quality = $('a > div.gr-quality', value).text()
+                const eps = $('a > div.gr-eps', value).text()
+                list.push({ title, link, imgsrc, quality, eps })
             })
             return list
         })
