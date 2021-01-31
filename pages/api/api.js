@@ -52,13 +52,16 @@ export const getLinks = (type, title) => {
                 return []
             }
             const url = vidoo + id
+            const name = $('h1.dc-title', html).text()
             const title = $('ul#episodes-sv-7 > li.ep-item > div.sli-name', html).text()
-            list.push({title, url})
+            list.push({name, title, url})
         } else {
             $('ul#episodes-sv-7 > li.ep-item', html).each((index, value) => {
                 const url = vidoo + $(value).attr('data-onlystream')
                 const title = $('div.sli-name > a', value).attr('title')
-                list.push({ title, url })
+                const name = $('h1.dc-title', html).text()
+
+                list.push({ name, title, url })
             })
         }
         return list
