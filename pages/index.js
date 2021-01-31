@@ -27,7 +27,7 @@ export default function Home({ data }) {
                 {data ? data.map((item, index) => (
                     <div key={index} className='col-md-3 col-sm-4 col-6 mb-2'>
                         <a href={`/watch${item.link}`}>
-                            <img src={item.imgsrc} />
+                            <img src={item.imgsrc} height='278' width='185'/>
                             <h5>{item.title}</h5>
                             <h6>{item.quality == "" ? item.eps : item.quality}</h6>
                         </a>

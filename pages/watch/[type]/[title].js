@@ -16,9 +16,9 @@ export default function Watch({ data, current }) {
         )
     }
     let selections
-    if (data) {
-        if (data.length > 0) {
-            selections = data.map((item, index) => (
+    if (data['list']) {
+        if (data['list'].length > 0) {
+            selections = data['list'].map((item, index) => (
                 <button key={index} className='btn btn-light mr-2 mb-2 text-left' onClick={() => setNow(item)}>{item.title}</button>
             ))
         } else {
@@ -31,7 +31,7 @@ export default function Watch({ data, current }) {
     return (
         <div className='container'>
             <Head>
-                <title>Watching '{now.name} {now.title}' | Ezystreams</title>
+                <title>Watching '{data.name} {now ? now.title : ""}' | Ezystreams</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {nowPlaying}
@@ -43,6 +43,6 @@ Watch.getInitialProps = async (ctx) => {
     const { type, title } = ctx.query
     const res = await fetch(`https://ezystreams-api.vercel.app/api/watch/${type}/${title}`)
     const data = await res.json()
-    const current = data.length > 0 ? data[0] : null
+    const current = data['list'].length > 0 ? data['list'][0] : null
     return { data, current }
 }
