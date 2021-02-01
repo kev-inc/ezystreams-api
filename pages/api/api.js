@@ -47,10 +47,11 @@ export const getLinks = (type, title) => {
     return rp(url).then(html => {
         let list = []
         const name = $('h1.dc-title', html).text()
+        const img = $('div.dc-thumb > img', html).attr('src')
         if (type == 'movie') {
             const id = $('div#server_list', html).attr('data-onlystream')
             if(id == "") {
-                return {name, list}
+                return {name, img, list}
             }
             const url = vidoo + id
             const title = $('ul#episodes-sv-7 > li.ep-item > div.sli-name', html).text()
@@ -62,6 +63,6 @@ export const getLinks = (type, title) => {
                 list.push({ title, url })
             })
         }
-        return {name, list}
+        return {name, img, list}
     })
 }
