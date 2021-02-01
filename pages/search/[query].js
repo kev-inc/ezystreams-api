@@ -47,7 +47,7 @@ export default function Search({ data, query }) {
 }
 Search.getInitialProps = async (ctx) => {
     const { query } = ctx.query
-    const res = await fetch(`https://ezystreams-api.vercel.app/api/search/${query}`)
+    const res = await fetch(`https://ezstreams.vercel.app/api/search/${query}`)
     const data = await res.json()
     return { data, query }
 }

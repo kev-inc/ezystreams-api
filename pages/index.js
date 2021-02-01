@@ -46,7 +46,7 @@ export default function Home({ data }) {
     )
 }
 Home.getInitialProps = async (ctx) => {
-    const res = await fetch('https://ezystreams-api.vercel.app/api/home')
+    const res = await fetch('https://ezstreams.vercel.app/api/home')
     const data = await res.json()
     return { data }
 }

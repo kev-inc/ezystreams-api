@@ -52,7 +52,7 @@ export default function Watch({ data, current }) {
 }
 Watch.getInitialProps = async (ctx) => {
     const { type, title } = ctx.query
-    const res = await fetch(`https://ezystreams-api.vercel.app/api/watch/${type}/${title}`)
+    const res = await fetch(`https://ezstreams.vercel.app/api/watch/${type}/${title}`)
     const data = await res.json()
     const current = data['list'].length > 0 ? data['list'][0] : null
     return { data, current }
