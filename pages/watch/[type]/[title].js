@@ -8,19 +8,20 @@ export default function Watch({ data, current }) {
     let nowPlaying
     if (current) {
         nowPlaying = (
-            <div>
-                <h5>{now.name}</h5>
-                <h5>{now.title}</h5>
-                <iframe height='480' width='100%' allowFullScreen={true} frameBorder="0" sandbox="allow-scripts allow-presentation" src={now.url} />
-            </div>
+            <iframe height='480' width='100%' allowFullScreen={true} frameBorder="0" sandbox="allow-scripts allow-presentation" src={now.url} />
+
         )
     }
     let selections
     if (data['list']) {
         if (data['list'].length > 0) {
-            selections = data['list'].map((item, index) => (
-                <button key={index} className='btn btn-light mr-2 mb-2 text-left' onClick={() => setNow(item)}>{item.title}</button>
-            ))
+            selections = <div>
+                <h5>{now.title}</h5>
+                {data['list'].map((item, index) => (
+                    <button key={index} className={`btn btn-sm btn-${now.url == item.url ? 'warning' : 'light'} mr-2 mb-2 text-left `} onClick={() => setNow(item)}>{item.title}</button>
+                ))}
+            </div>
+
         } else {
             selections = <h5>Sorry, but there are no available streams for this title.</h5>
         }
@@ -35,6 +36,7 @@ export default function Watch({ data, current }) {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {nowPlaying}
+            <h4>{data.name}</h4>
             {selections}
         </div>
     )
