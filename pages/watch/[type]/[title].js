@@ -7,8 +7,9 @@ export default function Watch({ data, current }) {
 
     let nowPlaying
     if (current) {
-        nowPlaying = (
-            <iframe height='480' width='100%' allowFullScreen={true} frameBorder="0" sandbox="allow-scripts allow-presentation" src={now.url} />
+        nowPlaying = (<div className='video-wrapper'>
+            <iframe className='responsive-iframe' allowFullScreen={true} frameBorder="0" sandbox="allow-scripts allow-presentation" src={now.url} />
+        </div>
 
         )
     }
@@ -36,8 +37,16 @@ export default function Watch({ data, current }) {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             {nowPlaying}
-            <h4>{data.name}</h4>
-            {selections}
+            <div className='d-flex my-2'>
+                <div>
+                    <img src={data.img} className='responsive' />
+                </div>
+                <div className='flex-grow-1 ml-3'>
+                    <h4>{data.name}</h4>
+                    {selections}
+                </div>
+            </div>
+
         </div>
     )
 }
